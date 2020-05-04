@@ -1,0 +1,57 @@
+@mixin flexCenter($direction){
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: $direction;
+}
+
+
+@mixin ring($size, $color ){
+
+  background: none;
+  height: $size ;
+  width: $size;
+  border-width:thickness($size, 10);
+  border-color: $color;
+  box-shadow: $color 0 0 10px;
+  border-radius:50% ;
+  border-style: solid;
+
+}
+
+@function thickness($size, $exponent) {
+$result: $size/$exponent;
+  @return $result;
+}
+
+
+body {
+  @include flexCenter(column);
+  font-size: 2.5rem;
+
+  .rings {
+    @include flexCenter(row);
+
+    .small_ring {
+      @include ring(50px, orange);
+      margin: 10px;
+    }
+    }
+  .big_ring {
+    @include ring(150px, yellow);
+    margin: 10px;
+  }
+  .container_severalRings {
+    @include flexCenter(row);
+    $size: 30px;
+    @for $i from 1 through 6 {
+      .severalRings:nth-child(#{$i}) {
+        @include ring($size, grey);
+        margin-left: -19px;
+      }
+      $size:$size+10;
+    }
+  }
+}
+
+
